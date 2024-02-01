@@ -1,0 +1,496 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Lab template
+
+# Lab VPC with public subnet and Internet Gateway
+
+Parameters:
+# 2.1. AMI ID for EC2 instance - use public parameter store
+  AmazonLinuxAMIID:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+# End of 2.1
+  Vpc1Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 11.0.0.0/16
+  Vpc1Subnet1Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 11.0.1.0/24
+
+  Vpc2Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 12.0.0.0/16
+  Vpc2Subnet1Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 12.0.1.0/24
+
+  Vpc3Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 13.0.0.0/16
+  Vpc3Subnet1Cidr:
+    Type: String
+    AllowedPattern: '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$'
+    Default: 13.0.1.0/24
+
+Resources:
+
+
+  Instance1Vpc1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc1PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc1
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance1-in-VPC1
+
+  Instance2Vpc1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc1PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc1
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance2-in-VPC1
+
+  Instance3Vpc1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc1PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc1
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance3-in-VPC1
+
+  Instance4Vpc1:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc1PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc1
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance4-in-VPC1
+        
+
+  Instance1Vpc2:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc2PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc2
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance1-in-VPC2
+
+  Instance1Vpc3:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: !Ref AmazonLinuxAMIID
+      SubnetId: !Ref Vpc3PublicSubnet1
+      SecurityGroupIds:
+        - !Ref Sg1Vpc3
+      IamInstanceProfile: !Ref InstanceProfile
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+
+          sudo su
+          yum update -y
+          yum install httpd -y
+          yum install -y jq
+
+          echo "<html><h1> Welcome to my lab server</h1><html>" >> /var/www/html/index.html
+          echo "<html><h2> Instance ID: `curl http://169.254.169.254/latest/meta-data/instance-id`</h2><html>"   >> /var/www/html/index.html
+          echo "<html><h2> Region: `curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region` </h2><html>" >> /var/www/html/index.html
+
+          systemctl start httpd
+          systemctl enable httpd
+      Tags:
+        - Key: Name
+          Value: Instance1-in-VPC3
+
+###########
+# VPC with Internet Gateway
+###########
+
+  Vpc1:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref Vpc1Cidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab VPC 1
+
+  Vpc2:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref Vpc2Cidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab VPC 2
+
+  Vpc3:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref Vpc3Cidr
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: Lab VPC 3
+
+  Vpc1Igw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab IGW 1
+
+  Vpc2Igw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab IGW 2
+
+  Vpc3Igw:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: Lab IGW 3
+
+
+  VPC1toIGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref Vpc1Igw
+      VpcId: !Ref Vpc1
+
+  VPC2toIGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref Vpc2Igw
+      VpcId: !Ref Vpc2
+
+  VPC3toIGWConnection:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref Vpc3Igw
+      VpcId: !Ref Vpc3
+
+###########
+# Public Route Table
+###########
+
+  Vpc1PublicRT:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc1
+      Tags:
+        - Key: Name
+          Value: Public Route Table of VPC 1
+  Vpc1PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref Vpc1Igw
+      RouteTableId: !Ref Vpc1PublicRT
+
+  Vpc2PublicRT:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc2
+      Tags:
+        - Key: Name
+          Value: Public Route Table of VPC 2
+  Vpc2PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref Vpc2Igw
+      RouteTableId: !Ref Vpc2PublicRT
+
+  Vpc3PublicRT:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref Vpc3
+      Tags:
+        - Key: Name
+          Value: Public Route Table of VPC 3
+  Vpc3PublicRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref Vpc3Igw
+      RouteTableId: !Ref Vpc3PublicRT
+
+###########
+# Public Subnet
+###########
+
+  Vpc1PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc1
+      MapPublicIpOnLaunch: true
+      CidrBlock: !Ref Vpc1Subnet1Cidr
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Public Subnet 1 of VPC 1
+
+  PublicRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref Vpc1PublicRT
+      SubnetId: !Ref Vpc1PublicSubnet1
+
+
+  Vpc2PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc2
+      MapPublicIpOnLaunch: true
+      CidrBlock: !Ref Vpc2Subnet1Cidr
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Public Subnet 1 of VPC 2
+
+  PublicRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref Vpc2PublicRT
+      SubnetId: !Ref Vpc2PublicSubnet1
+
+
+  Vpc3PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref Vpc3
+      MapPublicIpOnLaunch: true
+      CidrBlock: !Ref Vpc3Subnet1Cidr
+      AvailabilityZone: !Select 
+        - 0
+        - !GetAZs 
+          Ref: AWS::Region
+      Tags:
+        - Key: Name
+          Value: Public Subnet 1 of VPC 3
+
+  PublicRouteTableAssociation3:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref Vpc3PublicRT
+      SubnetId: !Ref Vpc3PublicSubnet1
+
+###########
+# IAM Role for Instance
+###########
+
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles: [!Ref ManagedBySSMRole]
+      InstanceProfileName: ManagedBySSM-InstanceProfile
+
+  ManagedBySSMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: Demo-ManagedBySSM-Role
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+
+###########
+# App Security Group
+###########
+
+  Sg1Vpc1:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SG 1 in VPC 1
+      GroupDescription: Enable http access to instance
+      VpcId: !Ref Vpc1
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: SG 1 in VPC 1
+  
+  Sg1Vpc2:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SG 1 in VPC 2
+      GroupDescription: Enable http access to instance
+      VpcId: !Ref Vpc2
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: SG 1 in VPC 2
+
+  Sg1Vpc3:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: SG 1 in VPC 3
+      GroupDescription: Enable http access to instance
+      VpcId: !Ref Vpc3
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: icmp
+          FromPort: 8
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: SG 1 in VPC 3
+###########
+# Outputs
+###########
+
+Outputs:
+  DNSnameInstance1Vpc1:
+    Value: !Sub ${Instance1Vpc1.PublicDnsName}
+  DNSnameInstance1Vpc2:
+    Value: !Sub ${Instance1Vpc2.PublicDnsName}
+  DNSnameInstance1Vpc3:
+    Value: !Sub ${Instance1Vpc2.PublicDnsName}
+
