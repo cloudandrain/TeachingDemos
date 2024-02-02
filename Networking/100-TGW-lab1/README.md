@@ -1,5 +1,7 @@
 # TeachingDemos
-To share with students
+Diagram
+
+![Diagram](./images/net1Diagram.png)
 
 ## Demo VPC peering
 1. Launch CFN template to create 3 VPCs + 1st subnet + 1 amz linux instance in each
