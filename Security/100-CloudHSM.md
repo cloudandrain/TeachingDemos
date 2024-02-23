@@ -8,7 +8,7 @@
   * [4. Create key, certificate & sign the CSR](#4-create-key--certificate---sign-the-csr)
   * [5. Upload certificates to completing the initialization](#5-upload-certificates-to-completing-the-initialization)
   * [6. Activate the HSM cluster](#6-activate-the-hsm-cluster)
-  * [7. Login to HSM & change password](#7-login-to-hsm---change-password)
+  * [7. Login to HSM and change password](#7-login-to-hsm-and-change-password)
 - [References](#references)
 
 # High-level steps
@@ -193,7 +193,7 @@ $ cat /opt/cloudhsm/etc/cloudhsm_client.cfg
 
 ````
 
-## 7. Login to HSM & change password
+## 7. Login to HSM and change password
 
 After changing password, the user type changes from PRECO (PRECrypto Officer) to CO
 
