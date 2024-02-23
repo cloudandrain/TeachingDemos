@@ -1,9 +1,15 @@
+<span style="font-size:4em;">Configure CloudHSM cluster</span>
 
-
-
-
-<span style="font-size:2em;">Configure CloudHSM cluster</span>
-
+- [High-level steps](#high-level-steps)
+- [Low-level steps](#low-level-steps)
+  * [1.  Create HSM Cluster](#1--create-hsm-cluster)
+  * [2.  Initialize HSM cluster](#2--initialize-hsm-cluster)
+  * [3. Download Cluster CSR](#3-download-cluster-csr)
+  * [4. Create key, certificate & sign the CSR](#4-create-key--certificate---sign-the-csr)
+  * [5. Upload certificates to completing the initialization](#5-upload-certificates-to-completing-the-initialization)
+  * [6. Activate the HSM cluster](#6-activate-the-hsm-cluster)
+  * [7. Login to HSM & change password](#7-login-to-hsm---change-password)
+- [References](#references)
 
 # High-level steps
 
