@@ -13,17 +13,17 @@
 
 # High-level steps
 
-Preparation
+**Preparation**
 
 1. Add IAM role
-
-AWS side
+**
+AWS side**
 
 1.  Create HSM Cluster
 2.  Initialize the cluster
 3.  Download ClusterCSR (certificate signing request)
 
-EC2 instance side (or can use Cloud9)
+**EC2 instance side (or can use Cloud9)**
 
 4. Create key, certificate & sign the CSR (EC2 instance side)
 
