@@ -5,7 +5,7 @@
   * [1.  Create HSM Cluster](#1--create-hsm-cluster)
   * [2.  Initialize HSM cluster](#2--initialize-hsm-cluster)
   * [3. Download Cluster CSR](#3-download-cluster-csr)
-  * [4. Create key, certificate & sign the CSR](#4-create-key--certificate---sign-the-csr)
+  * [4. Create key, certificate and sign the CSR](#4-create-key--certificate-and-sign-the-csr)
   * [5. Upload certificates to completing the initialization](#5-upload-certificates-to-completing-the-initialization)
   * [6. Activate the HSM cluster](#6-activate-the-hsm-cluster)
   * [7. Login to HSM and change password](#7-login-to-hsm-and-change-password)
@@ -25,7 +25,7 @@ AWS side**
 
 **EC2 instance side (or can use Cloud9)**
 
-4. Create key, certificate & sign the CSR (EC2 instance side)
+4. Create key, certificate and sign the CSR (EC2 instance side)
 
    1.  Create Pri key LOCALLY
 
