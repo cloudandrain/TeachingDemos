@@ -3,7 +3,8 @@
 pip install requests
 pip install python-decouple
 
-## 2. Establish env variable file. For demo only, input your keys 
+## 2. Create an IAM user with policy `AmazonEC2ReadOnlyAccess`. From there, create an access keys
+## 3. Create file to store environment variables. For demo only, input your keys into this file
 vi .env
 
 ````
@@ -11,3 +12,6 @@ AWS_ACCESS_KEY_ID=<YOUR_ACCESS_KEY_ID>
 AWS_SECRET_ACCESS_KEY=<YOUR_SECRET_ACCESS_KEY>
 ````
 # B. Check code & run the 2 python files
+
+# C. CleanUp
+Don't forget to delete resources, especially access key
