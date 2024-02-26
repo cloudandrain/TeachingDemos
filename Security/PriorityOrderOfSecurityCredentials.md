@@ -14,6 +14,12 @@ aws configure set aws_secret_access_key <yourSecretKey>
 **2. Environment variables**
 You can store values in your system's environment variables.  
 
+Ex:
+````
+export AWS_ACCESS_KEY_ID=<your-access-key-id>
+export AWS_SECRET_ACCESS_KEY=<your-secret-key>
+export AWS_SESSION_TOKEN=<your-session-token>
+````
 **3. Default credentials file**
 The credentials and config files are updated when you run the command aws configure.  
  
