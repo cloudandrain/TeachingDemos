@@ -5,6 +5,12 @@ To make requests to AWS, you must supply AWS credentials. Your code will find cr
 Providing credentials within code or a CLI command will override settings in any other location.
 You are enabled to also specify --region, --output, and --profile as parameters on the command line.
 
+Ex:
+````
+aws configure set aws_access_key_id <yourAccessKey>
+aws configure set aws_secret_access_key <yourSecretKey>
+````
+
 **2. Environment variables**
 You can store values in your system's environment variables.  
 
