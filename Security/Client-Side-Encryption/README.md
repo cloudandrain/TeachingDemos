@@ -1,4 +1,4 @@
-ENSURE YOU LAUNCH CFN STACK FROM `cfn-initInfra-1stRegion-master_v1.3.yaml`
+> ENSURE YOU LAUNCHED CFN STACK FROM `cfn-initInfra-1stRegion-master_v1.3.yaml`
 # Preparation
 1. Check Python version
 ````
