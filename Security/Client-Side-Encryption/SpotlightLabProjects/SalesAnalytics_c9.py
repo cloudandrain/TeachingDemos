@@ -100,7 +100,7 @@ if 'Table1' not in dynamodb_client.list_tables()['TableNames']:
 dynamodb_resource = boto3.resource('dynamodb', currentAWSRegion)
 
 #Open Sales Data file
-with open('./CSE/SKD-Encr/Data/50000SalesRecords.csv', 'rt') as f:
+with open('./TeachingDemos/Security/Client-Side-Encryption/Data/50000SalesRecords.csv', 'rt') as f:
     salesDataReader = csv.DictReader(f)
 
     itemCount=0
@@ -146,13 +146,13 @@ spotlightLabTable2 = dynamodb_resource.Table('Table2')
 
 # ToDo-6 - Load Table2 with client-encrypted sales data using DynamoDB Encryption SDK and KMS Keys
 # Open Sales Data file
-with open('./CSE/SKD-Encr/Data/50000SalesRecords.csv', 'rt') as f:
+with open('./TeachingDemos/Security/Client-Side-Encryption/Data/50000SalesRecords.csv', 'rt') as f:
     salesDataReader = csv.DictReader(f)
 
     itemCount=0
     # Create KMS Cryptographic Materials Provider
     spotlight_lab_direct_kms_cmp = AwsKmsCryptographicMaterialsProvider(
-        'arn:aws:kms:ap-southeast-1:696686700433:key/6d57c86f-9228-4370-9cae-e198b1eb6594')
+        'ARN_KMS_KEY')
 
     # Create EncryptedTable object using table and CMP
     encrypted_table_access = EncryptedTable(
@@ -198,7 +198,7 @@ else:
     dynamodb_resource = boto3.resource('dynamodb', currentAWSRegion)
 
     # Open Sales Data file
-with open('./CSE/SKD-Encr/Data/50000SalesRecords.csv', 'rt') as f:
+with open('./TeachingDemos/Security/Client-Side-Encryption/Data/50000SalesRecords.csv', 'rt') as f:
 
     salesDataReader = csv.DictReader(f)
 
@@ -263,7 +263,7 @@ for recipe in recipe_file_list:
 
     # Create the AWS Encryption SDK client and attach it to a KMS Key
     client = aws_encryption_sdk.EncryptionSDKClient(commitment_policy=CommitmentPolicy.REQUIRE_ENCRYPT_REQUIRE_DECRYPT)
-    keys = dict(key_ids=['arn:aws:kms:ap-southeast-1:696686700433:key/6d57c86f-9228-4370-9cae-e198b1eb6594'])
+    keys = dict(key_ids=['ARN_KMS_KEY'])
     master_key_provider = aws_encryption_sdk.StrictAwsKmsMasterKeyProvider(**keys)
 
     # Transform plain recipe text into encrypted recipe text
