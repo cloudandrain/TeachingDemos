@@ -251,7 +251,7 @@ with open('./TeachingDemos/Security/Client-Side-Encryption/Data/50000SalesRecord
 # ToDo-9 - Use AWS Encryption SDK to protect local data
         
 # Collect files from Grandma's secret recipes folder
-recipes_directory = './CSE/SKD-Encr/Personal/'
+recipes_directory = './TeachingDemos/Security/Client-Side-Encryption/Personal/'
 recipe_file_list = listdir(recipes_directory)
 
 for recipe in recipe_file_list:
