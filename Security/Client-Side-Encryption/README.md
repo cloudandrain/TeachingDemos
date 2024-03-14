@@ -125,6 +125,13 @@ pip install aws_encryption_sdk
 pip install -U PyCryptodome
 pip install Crypto
 ````
+4. Create a test KMS key
+````
+aws kms create-key
+````
+Note the key's ARN. Then, replace to `ARN_KMS_KEY` in the source code of `SalesAnalytics_c9.py`
+
+
 # SSE, Table1
 By default, DynamoDB automatically delivers server-side encryption of data. The items you are seeing represent encrypted data stored in DynamoDB. DynamoDB SSE automatically decrypted those items in response to your request to view them. So no administrative effort
 
