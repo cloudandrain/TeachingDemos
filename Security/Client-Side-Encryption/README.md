@@ -1,9 +1,11 @@
+ENSURE YOU LAUNCH CFN STACK FROM `cfn-initInfra-1stRegion-master_v1.3.yaml`
 # Preparation
 1. Check Python version
+````
 $ python
 Python 3.8.16 (default, Aug 30 2023, 23:19:34)
-
-2. Create role `viewerInstanceRoleForMedicalImages` which is applied to Cloud9 instance
+````
+2. Create role `viewerInstanceRoleForMedicalImages` & then apply it to the Cloud9 instance
 Policies:
 - AmazonSSMManagedInstanceCore (managed)
 - viewerInstancePolicySettingsForMedicalImages (inline)
