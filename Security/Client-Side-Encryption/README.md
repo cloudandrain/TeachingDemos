@@ -114,9 +114,10 @@ Policies:
 ````
 
 3. Initial installation on Cloud9 instance
+````
 pip install boto3
 pip install requests
-
+````
 **To use AWS Encryption SDK**
 ````
 pip install dynamodb-encryption-sdk
