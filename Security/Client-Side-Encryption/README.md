@@ -118,11 +118,12 @@ pip install boto3
 pip install requests
 
 **To use AWS Encryption SDK**
+````
 pip install dynamodb-encryption-sdk
 pip install aws_encryption_sdk
 pip install -U PyCryptodome
 pip install Crypto
-
+````
 # SSE, Table1
 By default, DynamoDB automatically delivers server-side encryption of data. The items you are seeing represent encrypted data stored in DynamoDB. DynamoDB SSE automatically decrypted those items in response to your request to view them. So no administrative effort
 
