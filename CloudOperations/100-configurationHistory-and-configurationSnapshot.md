@@ -63,7 +63,7 @@ aws configservice describe-delivery-channel-status --region ap-southeast-1
 
 4. We will use AWS CLI `put-delivery-channel` to enable configuration snapshot.
 
-- Create “skeleton” file `deliveryChannel.json `. Here we configure the frequency <u>1 hour</u>
+- Create “skeleton” file `deliveryChannel.json`. Here we configure the frequency <u>1 hour</u>
 
 ````
 {
