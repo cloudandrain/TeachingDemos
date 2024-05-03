@@ -60,14 +60,17 @@ Once the ECS cluster has created, go to its inside task to get public IP and the
 
 Check if the `ECS service` has enabled the attribute `enableExecuteCommand` 
 
-````
-aws ecs describe-services --cluster demo1-cluster1 --services nginx-service
-````
+```
+aws ecs describe-services --cluster demo1-cluster1 --services nginx-service | grep enableExecuteCommand
+```
+```
+"enableExecuteCommand": false
+```
 
 We can get task definition’s ARN from console or CLI
 
 ````
-aws ecs describe-tasks --cluster  demo1-cluster1 --tasks 04bb794568c543dcb117e43b1dfd9983
+aws ecs describe-tasks --cluster  demo1-cluster1 --tasks 04bb794568c543dcb117e43b1dfd9983 | grep taskDefinitionArn
 ````
 
 Enable exe command in service + force new deployment.
@@ -82,6 +85,12 @@ aws ecs update-service \
     --enable-execute-command \
     --force-new-deployment
 ````
+
+Output
+```
+$ aws ecs describe-services --cluster AWSomeRentalsECSCluster --services backend | grep enableExecuteCommand
+            "enableExecuteCommand": true
+```
 
 #### 4. Execute command to enter bash shell console
 
